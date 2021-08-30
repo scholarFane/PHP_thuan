@@ -9,10 +9,12 @@ class DbConnection{
     protected $connection;
  
     public function __construct(){
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->database;
  
         if (!isset($this->connection)) {
  
-            $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
+            $this->connection = new PDO($dsn, $this->username, $this->password);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
  
             if (!$this->connection) {
                 echo 'Cannot connect to database server';
